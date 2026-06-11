@@ -8,8 +8,8 @@ pg:
       user: jaffle
       password: jaffle
       dbname: jaffle_shop
-      schema: dbt_mguedon
-      search_path: dbt_mguedon,public
+      schema: dbt_user
+      search_path: dbt_user,public
       threads: 4
       #sslmode: verify-ca
       #sslrootcert: mkcert/rootCA.pem
@@ -32,7 +32,7 @@ duckdb:
     dev:
       type: duckdb
       path: './offline/duckdb_tuto.duckdb'
-      schema: dbt_mguedon
+      schema: dbt_user
       threads: 1
       # threads: 1  (for log_query_path to work)
       #settings:
