@@ -70,7 +70,7 @@ just duck_restart
 ## Base image
 
 dbt/Dockerfile is for building the base image.  
-It include Zscaler certficate to pass the enterprise security measures.  
+It include Zscaler certficate to pass the enterprise security.  
 It includes netcat and nano (for editing files and testing network).  
 It includes git and dbt-core.  
 
@@ -115,14 +115,14 @@ SET search_path TO dbt_user_seeds, public;
 \d+
 -- desc customers
 \d customers
--- access privs on cutomers
+-- access privs on customers
 \dp customers
 ```
 
 The database can be queried with a postgres client on the host (like pgadmin) using localhost:54320.  
 Again container postgres must be running.
 
-### Recreate database
+### Recreate postgres database
 
 The database init process is launched only if pgdata directory is empty.
 
@@ -132,6 +132,8 @@ Stop postgres container and run a alpine container to empty pgdata directory.
 just pg_stop
 
 podman run --rm -v dbtlab_pg_pgdata:/data:rw docker.io/library/alpine rm -rf /data/18
+
+just pg_up
 ```
 
 ## Dbt - Duckdb
@@ -145,4 +147,10 @@ Create and start container
 
 ```cmd
 just duck_up
+```
+
+Stop and drop containers
+
+```cmd
+just duck_down
 ```
