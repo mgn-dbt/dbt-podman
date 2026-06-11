@@ -18,7 +18,7 @@ services:
             POSTGRES_PASSWORD: postgres
         volumes:
             - ./scripts/pg_init.sql:/docker-entrypoint-initdb.d/pg_init.sql
-            - pgdata:/var/lib/postgresql:z
+            - pgdata:/var/lib/postgresql
         networks:
             # Database is only accessible from pgnet network
             - pgnet

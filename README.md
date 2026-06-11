@@ -2,14 +2,25 @@
 
 ## Environment
 
-Windows / Powershell / WSL  
+I use SCOOP under Windows and Powershell Core with no admin rights.  
 
-WSL must be installed.  
+Excerpt from "scoop list" :
+
+```cmd
+pwsh             7.6.2        main
+vscode           1.124.0      extras
+podman           5.8.2        main
+podman-desktop   1.27.2       extras
+docker-compose   5.1.4        main
+just             1.52.0       main
+```
+
+WSL must be installed (admin rights necessary).  
 Podman has been chosen as the container software.  
 Podman-desktop has been used to manage images, volumes, networks and containers.  
 Docker-compose has been installed to manage compose files.
 
-Content of %UserProfile%\.wslconfig  
+Content of %UserProfile%\\.wslconfig  
 
 ```ini
 [wsl2]
