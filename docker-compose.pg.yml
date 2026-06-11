@@ -1,0 +1,67 @@
+# https://docs.docker.com/reference/compose-file/
+name: dbtlab_pg
+volumes:
+    pgdata:
+        driver: local
+networks:
+    pgnet:
+        driver: bridge
+services:
+    # https://hub.docker.com/_/postgres
+    postgres:
+        image: postgres:18.4-trixie
+        container_name: postgres
+        # Environment variables declared in the environment section override those in env_file
+        environment:
+            POSTGRES_DB: jaffle_shop
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        volumes:
+            - ./scripts/pg_init.sql:/docker-entrypoint-initdb.d/pg_init.sql
+            - pgdata:/var/lib/postgresql:z
+        networks:
+            # Database is only accessible from pgnet network
+            - pgnet
+        ports:
+            - 54320:5432
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres -d jaffle_shop"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+            # start_period: Ns
+
+    dbt:
+        container_name: dbt_pg
+        build:
+            context: ./dbt
+            dockerfile: Dockerfile.pg
+        volumes:
+            - ./dbt:/usr/src/dbt
+        environment:
+            # Override dockerfile ENV
+            DBT_ENV_NAME: dev
+            DBT_ENGINE_PROFILES_DIR: /usr/src/dbt
+            #DBT_ENGINE_TARGET: prod        # override target in profile (--target)
+            DBT_ENGINE_PROFILE: pg         # override profile in dbt_project (--profile)
+            #DBT_ENGINE_FULL_REFRESH: true  # boolean force seed refresh
+            #DBT_ENGINE_EMPTY: true         # boolean no data moved
+            #DBT_ENGINE_FAIL_FAST: true     # boolean
+        
+        command: /bin/bash -c "
+            echo '🚀 Running dbt ...'; \
+            echo '🚀 Running dbt debug...' && dbt debug && echo '✅ dbt debug complete.'; \
+            echo '🚀 Running dbt clean...' && dbt clean && echo '✅ dbt clean complete.'; \
+            echo '🚀 Running dbt compile...' && dbt compile && echo '✅ dbt compile complete.'; \
+            echo '🚀 Running dbt build...' && dbt build && echo '✅ dbt build complete.'; \
+            echo '✅ dbt complete.'; \
+            tail -f /dev/null "
+            # Override dockerfile CMD
+            # https://oneuptime.com/blog/post/2026-03-16-run-multiple-commands-podman-container/view
+
+        networks:
+            # Database is only accessible from pgnet network
+            - pgnet
+        depends_on:
+          postgres:
+            condition: service_healthy

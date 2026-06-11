@@ -1,0 +1,37 @@
+# https://docs.docker.com/reference/compose-file/
+name: dbtlab_duckdb
+
+services:
+
+    dbt:
+        container_name: dbt_duckdb
+        build:
+            context: ./dbt
+            dockerfile: Dockerfile.duckdb
+        volumes:
+            - ./dbt:/usr/src/dbt
+        environment:
+            # Override dockerfile ENV
+            DBT_ENV_NAME: dev
+            DBT_ENGINE_PROFILES_DIR: /usr/src/dbt
+            #DBT_ENGINE_TARGET: prod        # override target in profile (--target)
+            DBT_ENGINE_PROFILE: duckdb     # override profile in dbt_project (--profile)
+            #DBT_ENGINE_FULL_REFRESH: true  # boolean force seed refresh
+            #DBT_ENGINE_EMPTY: true         # boolean no data moved
+            #DBT_ENGINE_FAIL_FAST: true     # boolean
+        command: /bin/bash -c "
+            echo '🚀 Running dbt ...'; \
+            echo '🚀 Running dbt debug...' && dbt debug && echo '✅ dbt debug complete.'; \
+            echo '🚀 Running dbt clean...' && dbt clean && echo '✅ dbt clean complete.'; \
+            echo '🚀 Running dbt compile...' && dbt compile && echo '✅ dbt compile complete.'; \
+            echo '🚀 Running dbt build...' && dbt build && echo '✅ dbt build complete.'; \
+            echo '✅ dbt complete.'; \
+            tail -f /dev/null "
+            # Override dockerfile CMD
+
+
+#################
+# python -m dbt.adapters.duckdb.cli
+# sh: 1: xdg-open: not found
+# tente d'ouvrir un navigateur (http://localhost:4213/)
+# https://duckdb.org/docs/lts/operations_manual/duckdb_docker

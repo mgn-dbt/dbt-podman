@@ -1,0 +1,47 @@
+pg:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: postgres
+      port: 5432
+      user: jaffle
+      password: jaffle
+      dbname: jaffle_shop
+      schema: dbt_mguedon
+      search_path: dbt_mguedon,public
+      threads: 4
+      #sslmode: verify-ca
+      #sslrootcert: mkcert/rootCA.pem
+    prod:
+      type: postgres
+      host: postgres
+      port: 5432
+      user: jaffle
+      password: jaffle
+      dbname: jaffle_shop
+      schema: prod
+      search_path: prod,public
+      threads: 4
+      #sslmode: verify-ca
+      #sslrootcert: mkcert/rootCA.pem
+
+duckdb:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: './offline/duckdb_tuto.duckdb'
+      schema: dbt_mguedon
+      threads: 1
+      # threads: 1  (for log_query_path to work)
+      #settings:
+      #  log_query_path: './offline/duckdb_tuto_query.log'
+    prod:
+      type: duckdb
+      path: './offline/duckdb_tuto.duckdb'
+      schema: prod
+      threads: 1
+      # threads: 1  (for log_query_path to work)
+      #settings:
+      #  log_query_path: './offline/duckdb_tuto_query.log'
