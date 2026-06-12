@@ -39,6 +39,9 @@ pg_restart:
 pg_start:
     podman compose -f {{BASE}}.pg.yml start
 
+pg_ssh:
+    podman exec -it postgres bash
+
 # duckdb
 duck_conf:
     podman compose -f {{BASE}}.duckdb.yml config

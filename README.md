@@ -120,12 +120,14 @@ psql -d jaffle_shop -U jaffle
 ```sql
 -- get schemas
 \dn
--- set default schema
-SET search_path TO dbt_user_seeds, public;
+-- get search_path
+SHOW search_path;
+-- set search_path
+SET search_path TO dbt_user_seeds, "$user", public;
 -- list tables
 \d+
 -- desc customers
-\d customers
+\d+ customers
 -- access privs on customers
 \dp customers
 ```

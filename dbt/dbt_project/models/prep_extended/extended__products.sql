@@ -1,8 +1,4 @@
-{% if target.type == 'postgres' %}
-    {{ config(materialized='table', alias='products', grants = {'select': ['lecteur']}) }}
-{% else %}
-    {{ config(materialized='table', alias='products') }}
-{% endif %}
+{{ config(materialized='table', alias='products') }}
 
 with
 source as (

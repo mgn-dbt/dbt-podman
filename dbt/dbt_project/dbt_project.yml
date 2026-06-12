@@ -16,9 +16,6 @@ seeds:
     +persist_docs:
       relation: true
       columns: true
-    # duckdb ko : can not serialize 'Undefined' object
-    # +grants:
-      # select: "{{ ['lecteur'] if target.type == 'postgres' }}"
 
     lot3:
       +schema: seeds
@@ -33,9 +30,6 @@ models:
     +persist_docs:
       relation: true
       columns: true
-    # duckdb ko : can not serialize 'Undefined' object
-    # +grants:
-      # select: "{{ ['lecteur'] if target.type == 'postgres' }}"
 
     prep_jaffle_shop:
       +materialized: table
@@ -51,7 +45,10 @@ models:
       +materialized: table
       +schema: src_extended
       +tags: extended
-      
+
+on-run-end:
+  - "{% do grant_select(role='lecteur') %}"
+
 flags:
   require_unique_project_resource_names: true
 

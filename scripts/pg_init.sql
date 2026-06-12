@@ -31,6 +31,7 @@ BEGIN
 END
 $$;
 
+GRANT CONNECT ON DATABASE jaffle_shop TO lecteur;
 GRANT  ALL ON DATABASE jaffle_shop TO jaffle;
 REVOKE ALL ON DATABASE jaffle_shop FROM public;
 

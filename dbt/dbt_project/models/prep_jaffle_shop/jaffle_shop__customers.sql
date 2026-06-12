@@ -1,8 +1,4 @@
-{% if target.type == 'postgres' %}
-    {{ config(materialized='table', alias='customers', grants = {'select': ['lecteur']}) }}
-{% else %}
-    {{ config(materialized='table', alias='customers') }}
-{% endif %}
+{{ config(materialized='table', alias='customers') }}
 
 with
 source as (
@@ -10,11 +6,11 @@ source as (
 ),
 
 transformed as (
-select 
-    {{ dbt.cast('id', dbt.type_int()) }} as id,
-    first_name,
-    last_name
-from source
+    select
+        {{ dbt.cast('id', dbt.type_int()) }} as id,
+        first_name,
+        last_name
+    from source
 )
 
 select * from transformed
