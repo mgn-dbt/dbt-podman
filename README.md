@@ -1,5 +1,12 @@
 # Containerized dbt
 
+## git sub module
+
+git submodule add https://github.com/mgn-dbt/tuto-init.git dbt/dbt_project
+
+cloning with sub-modules
+git clone --recurse-submodules https://github.com/mgn-dbt/dbt-podman.git
+
 ## Environment
 
 I use SCOOP under Windows and Powershell Core with no admin rights.  
