@@ -6,7 +6,7 @@ I use SCOOP under Windows and Powershell Core with no admin rights.
 
 Excerpt from "scoop list" :
 
-```cmd
+```txt
 pwsh             7.6.2        main
 vscode           1.124.0      extras
 podman           5.8.2        main
@@ -20,7 +20,7 @@ Podman has been chosen as the container software.
 Podman-desktop has been used to manage images, volumes, networks and containers.  
 Docker-compose has been installed to manage compose files.
 
-Content of %UserProfile%\\.wslconfig  
+Content of `%UserProfile%\.wslconfig`
 
 ```ini
 [wsl2]
@@ -33,13 +33,13 @@ The podman machine (container engine) has been called podman1 instead of the def
 Here is the command to create it.  
 But you can also use podman-desktop to create it.  
 
-```cmd
+```powershell
 podman machine init  podman1
 ```
 
 If you have Zscaler, for pulling images you need to integrate Zscaler root certificate.  
 
-```cmd
+```powershell
 podman machine start podman1
 podman machine ssh podman1
 
@@ -56,61 +56,63 @@ Tuto-init is included in dbt-podman as a git submodule.
 
 Add a git submodule
 
-```cmd
+```powershell
 git submodule add https://github.com/mgn-dbt/tuto-init.git dbt/dbt_project
 ```
 
 Cloning a repository with submodules
 
-```cmd
+```powershell
 git clone --recurse-submodules https://github.com/mgn-dbt/dbt-podman.git
 ```
 
 Update submodules in a repository
 
-```cmd
+```powershell
 git submodule update --remote
 ```
 
 Cf [git submodules](https://blog.stephane-robert.info/docs/developper/version/git/submodules/)
 
+---
+
 ## Just command runner
 
 Just command runner has been used to simplify commands.  
 
-```cmd
-# create and start pg
-just pg_up
-# stop and drop pg
-just pg_down
-# stop pg
-just pg_stop
-# start pg
-just pg_start
-# restart pg
-just pg_restart
-
-# create and start duckdb
-just duck_up
-# stop and drop duckdb
-just duck_down
-# stop duckdb
-just duck_stop
-# start duckdb
-just duck_start
-# restart duckdb
-just duck_restart
+```powershell
+just -l
 ```
 
 ## Base image
 
+**The base image must be built first**  
 dbt/Dockerfile is for building the base image.  
 It include Zscaler certficate to pass the enterprise security.  
 It includes netcat and nano (for editing files and testing network).  
 It includes git and dbt-core.  
 
-```cmd
-podman build --tag dbt:1.0.1 -f ./dbt/Dockerfile
+```powershell
+just build_base
+```
+
+## Dbt - Duckdb
+
+Duckdb container is based on base image dbt:1.0.1  
+dbt/Dockerfile.duckdb only add dbt-duckdb  
+
+docker-compose.duckdb.yml creates only one container  
+
+Create and start container  
+
+```powershell
+just duck_up
+```
+
+Stop and drop container  
+
+```powershell
+just duck_down
 ```
 
 ## Dbt - PostgreSQL
@@ -122,22 +124,32 @@ docker-compose.pg.yml creates 2 containers
 
 Create and start containers  
 
-```cmd
+```powershell
 just pg_up
 ```
 
-Stop and drop containers
+Stop and drop containers  
 
-```cmd
+```powershell
 just pg_down
+```
+
+### Recreate postgres database
+
+The database init process is launched only if pgdata directory is empty.
+
+Stop postgres container and run a alpine container to empty pgdata directory.
+
+```powershell
+just pg_reinit
 ```
 
 ### Querying database
 
 Container postgres must be running
 
-```cmd
-podman exec -it postgres bash
+```powershell
+just pg_ssh
 psql -d jaffle_shop -U jaffle
 ```
 
@@ -156,38 +168,4 @@ SET search_path TO dbt_user_seeds_ext, "$user", public;
 \dp customers
 ```
 
-The database can be queried with a postgres client on the host (like pgadmin) using localhost:54320.  
-Again container postgres must be running.
-
-### Recreate postgres database
-
-The database init process is launched only if pgdata directory is empty.
-
-Stop postgres container and run a alpine container to empty pgdata directory.
-
-```cmd
-just pg_stop
-
-podman run --rm -v dbtlab_pg_pgdata:/data:rw docker.io/library/alpine rm -rf /data/18
-
-just pg_up
-```
-
-## Dbt - Duckdb
-
-Duckdb container is based on base image dbt:1.0.1  
-dbt/Dockerfile.duckdb only add dbt-duckdb  
-
-docker-compose.duckdb.yml creates only one container  
-
-Create and start container  
-
-```cmd
-just duck_up
-```
-
-Stop and drop containers
-
-```cmd
-just duck_down
-```
+The database can be queried with a postgres client on the host (like pgadmin) using localhost:54320 while postgres container is running.  
