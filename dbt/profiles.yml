@@ -8,8 +8,8 @@ pg:
       user: jaffle
       password: jaffle
       dbname: jaffle_shop
-      schema: dbt_user
-      search_path: dbt_user,public
+      schema: dbt_tuto
+      search_path: dbt_tuto,public
       threads: 4
       #sslmode: verify-ca
       #sslrootcert: mkcert/rootCA.pem
@@ -20,8 +20,8 @@ pg:
       user: jaffle
       password: jaffle
       dbname: jaffle_shop
-      schema: prod
-      search_path: prod,public
+      schema: dbt_prod
+      search_path: dbt_prod,public
       threads: 4
       #sslmode: verify-ca
       #sslrootcert: mkcert/rootCA.pem
@@ -32,7 +32,7 @@ duckdb:
     dev:
       type: duckdb
       path: './offline/duckdb_tuto.duckdb'
-      schema: dbt_user
+      schema: dbt_tuto
       threads: 1
       # threads: 1  (for log_query_path to work)
       #settings:
@@ -40,7 +40,7 @@ duckdb:
     prod:
       type: duckdb
       path: './offline/duckdb_tuto.duckdb'
-      schema: prod
+      schema: dbt_prod
       threads: 1
       # threads: 1  (for log_query_path to work)
       #settings:

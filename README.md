@@ -1,12 +1,5 @@
 # Containerized dbt
 
-## git sub module
-
-git submodule add https://github.com/mgn-dbt/tuto-init.git dbt/dbt_project
-
-cloning with sub-modules
-git clone --recurse-submodules https://github.com/mgn-dbt/dbt-podman.git
-
 ## Environment
 
 I use SCOOP under Windows and Powershell Core with no admin rights.  
@@ -55,6 +48,22 @@ Connecting to vm podman1. To close connection, use `~.` or `exit`
 [root@HOST ~]# cp /mnt/c/Users/<username>/Desktop/zscaler-root-ca.crt /etc/pki/ca-trust/source/anchors/
 [root@HOST ~]# update-ca-trust
 [root@HOST ~]# exit
+```
+
+## Git submodules
+
+Tuto-init is included in dbt-podman as a git submodule.
+
+Add a git submodule
+
+```cmd
+git submodule add https://github.com/mgn-dbt/tuto-init.git dbt/dbt_project
+```
+
+Cloning a repository with submodules
+
+```cmd
+git clone --recurse-submodules https://github.com/mgn-dbt/dbt-podman.git
 ```
 
 ## Just command runner
@@ -130,7 +139,7 @@ psql -d jaffle_shop -U jaffle
 -- get search_path
 SHOW search_path;
 -- set search_path
-SET search_path TO dbt_user_seeds, "$user", public;
+SET search_path TO dbt_user_seeds_ext, "$user", public;
 -- list tables
 \d+
 -- desc customers
