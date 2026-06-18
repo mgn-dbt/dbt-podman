@@ -66,6 +66,14 @@ Cloning a repository with submodules
 git clone --recurse-submodules https://github.com/mgn-dbt/dbt-podman.git
 ```
 
+Update submodules in a repository
+
+```cmd
+git submodule update --remote
+```
+
+Cf [git submodules](https://blog.stephane-robert.info/docs/developper/version/git/submodules/)
+
 ## Just command runner
 
 Just command runner has been used to simplify commands.  

@@ -31,17 +31,19 @@ duckdb:
   outputs:
     dev:
       type: duckdb
-      path: './offline/duckdb_tuto.duckdb'
+      # You can use a relative path (resolved relative to your profiles.yml file)
+      path: '../tuto.duckdb'
       schema: dbt_tuto
       threads: 1
       # threads: 1  (for log_query_path to work)
       #settings:
-      #  log_query_path: './offline/duckdb_tuto_query.log'
+      #  log_query_path: '../tuto_query.log'
     prod:
       type: duckdb
-      path: './offline/duckdb_tuto.duckdb'
+      # You can use a relative path (resolved relative to your profiles.yml file)
+      path: '../tuto.duckdb'
       schema: dbt_prod
       threads: 1
       # threads: 1  (for log_query_path to work)
       #settings:
-      #  log_query_path: './offline/duckdb_tuto_query.log'
+      #  log_query_path: '../tuto_query.log'
