@@ -1,5 +1,11 @@
 # Containerized dbt
 
+## Git
+
+Cf [Git submodules](./git.md)
+
+git clone --recurse-submodules https://github.com/mgn-dbt/dbt-podman.git
+
 ## Environment
 
 I use SCOOP under Windows and Powershell Core with no admin rights.  
@@ -49,32 +55,6 @@ Connecting to vm podman1. To close connection, use `~.` or `exit`
 [root@HOST ~]# update-ca-trust
 [root@HOST ~]# exit
 ```
-
-## Git submodules
-
-Tuto-init is included in dbt-podman as a git submodule.
-
-Add a git submodule
-
-```powershell
-git submodule add https://github.com/mgn-dbt/tuto-init.git dbt/dbt_project
-```
-
-Cloning a repository with submodules
-
-```powershell
-git clone --recurse-submodules https://github.com/mgn-dbt/dbt-podman.git
-```
-
-Update submodules in a repository
-
-```powershell
-git submodule update --remote
-```
-
-Cf [git submodules](https://blog.stephane-robert.info/docs/developper/version/git/submodules/)
-
----
 
 ## Just command runner
 

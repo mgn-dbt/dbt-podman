@@ -20,15 +20,18 @@ services:
             #DBT_ENGINE_EMPTY: true         # boolean no data moved
             #DBT_ENGINE_FAIL_FAST: true     # boolean
         command: /bin/bash -c "
+            cd tuto-init; \
             echo '🚀 Running dbt ...'; \
-            echo '🚀 Running dbt debug...' && dbt debug && echo '✅ dbt debug complete.'; \
+            echo '🚀 Running dbt clean...' && dbt clean && echo '✅ dbt clean complete.'; \
+            echo '🚀 Running dbt compile...' && dbt compile && echo '✅ dbt compile complete.'; \
+            echo '🚀 Running dbt build...' && dbt build && echo '✅ dbt build complete.'; \
+            cd tutorial; \
             echo '🚀 Running dbt clean...' && dbt clean && echo '✅ dbt clean complete.'; \
             echo '🚀 Running dbt compile...' && dbt compile && echo '✅ dbt compile complete.'; \
             echo '🚀 Running dbt build...' && dbt build && echo '✅ dbt build complete.'; \
             echo '✅ dbt complete.'; \
             tail -f /dev/null "
             # Override dockerfile CMD
-
 
 #################
 # python -m dbt.adapters.duckdb.cli

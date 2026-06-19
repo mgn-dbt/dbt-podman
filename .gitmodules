@@ -1,3 +1,7 @@
-[submodule "dbt/dbt_project"]
-	path = dbt/dbt_project
+[submodule "dbt/tuto-init"]
+	path = dbt/tuto-init
 	url = https://github.com/mgn-dbt/tuto-init.git
+[submodule "dbt/tutorial"]
+	path = dbt/tutorial
+	url = https://github.com/mgn-dbt/tutorial.git
+	branch = develop_pg
