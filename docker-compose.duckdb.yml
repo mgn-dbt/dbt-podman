@@ -27,6 +27,7 @@ services:
             echo '🚀 Running dbt build...' && dbt build && echo '✅ dbt build complete.'; \
             cd tutorial; \
             echo '🚀 Running dbt clean...' && dbt clean && echo '✅ dbt clean complete.'; \
+            echo '🚀 Running dbt deps...' && dbt deps && echo '✅ dbt deps complete.'; \
             echo '🚀 Running dbt compile...' && dbt compile && echo '✅ dbt compile complete.'; \
             echo '🚀 Running dbt build...' && dbt build && echo '✅ dbt build complete.'; \
             echo '✅ dbt complete.'; \
