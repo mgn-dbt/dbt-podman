@@ -7,7 +7,7 @@ services:
         container_name: dbt_duckdb
         build:
             context: ./dbt
-            dockerfile: Dockerfile.duckdb
+            dockerfile: dbt-duckdb.Dockerfile
         volumes:
             - ./dbt:/usr/src/dbt
         environment:
