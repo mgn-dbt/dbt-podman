@@ -7,7 +7,7 @@ services:
         container_name: dbt_duckdb
         build:
             context: ./dbt
-            dockerfile: dbt-duckdb.Dockerfile
+            dockerfile: ./docker/duckdb/Dockerfile
         volumes:
             - ./dbt:/usr/src/dbt
         environment:
@@ -23,12 +23,10 @@ services:
             cd tuto-init; \
             echo '🚀 Running dbt ...'; \
             echo '🚀 Running dbt clean...' && dbt clean && echo '✅ dbt clean complete.'; \
-            echo '🚀 Running dbt compile...' && dbt compile && echo '✅ dbt compile complete.'; \
             echo '🚀 Running dbt build...' && dbt build && echo '✅ dbt build complete.'; \
-            cd tutorial; \
+            cd ../tutorial; \
             echo '🚀 Running dbt clean...' && dbt clean && echo '✅ dbt clean complete.'; \
             echo '🚀 Running dbt deps...' && dbt deps && echo '✅ dbt deps complete.'; \
-            echo '🚀 Running dbt compile...' && dbt compile && echo '✅ dbt compile complete.'; \
             echo '🚀 Running dbt build...' && dbt build && echo '✅ dbt build complete.'; \
             echo '✅ dbt complete.'; \
             tail -f /dev/null "
@@ -37,5 +35,5 @@ services:
 #################
 # python -m dbt.adapters.duckdb.cli
 # sh: 1: xdg-open: not found
-# tente d'ouvrir un navigateur (http://localhost:4213/)
+# (http://localhost:4213/)
 # https://duckdb.org/docs/lts/operations_manual/duckdb_docker

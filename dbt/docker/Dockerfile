@@ -18,5 +18,5 @@ RUN pip install dbt-core==1.11.9 pip_system_certs
 
 CMD ["bash", "-c", "tail -f /dev/null"]
 
-# podman build --tag dbt:1.0.1 -f ./dbt/Dockerfile
+# podman build --tag dbt:1.0.1 -f ./dbt/docker/Dockerfile
 

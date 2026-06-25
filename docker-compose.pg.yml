@@ -35,7 +35,7 @@ services:
         container_name: dbt_pg
         build:
             context: ./dbt
-            dockerfile: dbt-pg.Dockerfile
+            dockerfile: ./docker/pg/Dockerfile
         volumes:
             - ./dbt:/usr/src/dbt
         environment:
@@ -51,12 +51,10 @@ services:
             cd tuto-init; \
             echo '🚀 Running dbt ...'; \
             echo '🚀 Running dbt clean...' && dbt clean && echo '✅ dbt clean complete.'; \
-            echo '🚀 Running dbt compile...' && dbt compile && echo '✅ dbt compile complete.'; \
             echo '🚀 Running dbt build...' && dbt build && echo '✅ dbt build complete.'; \
-            cd tutorial; \
+            cd ../tutorial; \
             echo '🚀 Running dbt clean...' && dbt clean && echo '✅ dbt clean complete.'; \
             echo '🚀 Running dbt deps...' && dbt deps && echo '✅ dbt deps complete.'; \
-            echo '🚀 Running dbt compile...' && dbt compile && echo '✅ dbt compile complete.'; \
             echo '🚀 Running dbt build...' && dbt build && echo '✅ dbt build complete.'; \
             echo '✅ dbt complete.'; \
             tail -f /dev/null "
