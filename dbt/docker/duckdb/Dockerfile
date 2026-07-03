@@ -1,6 +1,6 @@
 # https://docs.docker.com/reference/dockerfile
 
-FROM dbt:1.0.1
+FROM dbt:1.0.2
 
 RUN pip install dbt-duckdb==1.10.1
 

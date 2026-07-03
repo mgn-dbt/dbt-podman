@@ -28,7 +28,7 @@ ps:
 #
 [doc('Build dbt base image')]
 build_base:
-    podman build --tag dbt:1.0.1 -f ./dbt/docker/Dockerfile
+    podman build --tag dbt:1.0.2 -f ./dbt/docker/Dockerfile
 #
 [doc('Verify docker-compose.pg.yml')]
 pg_conf:
