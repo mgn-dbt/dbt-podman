@@ -1,3 +1,4 @@
+--The default postgres user and database are created in the entrypoint with initdb.
 
 -- Create application user
 DO
@@ -18,18 +19,6 @@ BEGIN
 END
 $$;
 
-
--- Create jaffle_shop database if not exists
-DO
-$$
-BEGIN
-    IF NOT EXISTS (SELECT FROM pg_database WHERE datname = 'jaffle_shop') THEN
-        CREATE DATABASE jaffle_shop 
-        WITH
-            ENCODING = 'UTF8';
-    END IF;
-END
-$$;
 
 GRANT CONNECT ON DATABASE jaffle_shop TO lecteur;
 GRANT  ALL ON DATABASE jaffle_shop TO jaffle;
