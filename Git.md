@@ -6,7 +6,6 @@ Tutorial (branch develop_pg) is included in dbt-podman as a git submodule.
 Add a git submodule
 
 ```powershell
-git submodule add -b main https://github.com/mgn-dbt/tuto-init.git dbt/tuto-init
 git submodule add -b develop_pg https://github.com/mgn-dbt/tutorial.git dbt/tutorial
 ```
 
