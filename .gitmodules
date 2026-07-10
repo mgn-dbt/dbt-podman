@@ -1,7 +1,3 @@
-[submodule "dbt/tuto-init"]
-	path = dbt/tuto-init
-	url = https://github.com/mgn-dbt/tuto-init.git
-	branch = main
 [submodule "dbt/tutorial"]
 	path = dbt/tutorial
 	url = https://github.com/mgn-dbt/tutorial.git
