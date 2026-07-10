@@ -5,7 +5,7 @@ FROM dbt:1.0.2
 RUN pip install dbt-duckdb==1.10.1
 
 # cf docker-compose volumes
-WORKDIR /usr/src/dbt
+WORKDIR /usr/src/dbt/tutorial
 
 # https://docs.getdbt.com/docs/local/profiles.yml?version=1.11&name=Core
 ENV DBT_ENV_NAME=dev

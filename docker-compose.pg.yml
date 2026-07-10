@@ -38,6 +38,7 @@ services:
             dockerfile: ./docker/pg/Dockerfile
         volumes:
             - ./dbt:/usr/src/dbt
+        working_dir: /usr/src/dbt/tutorial
         environment:
             # Override dockerfile ENV
             DBT_ENV_NAME: dev
@@ -47,15 +48,12 @@ services:
             #DBT_ENGINE_FULL_REFRESH: true  # boolean force seed refresh
             #DBT_ENGINE_EMPTY: true         # boolean no data moved
             #DBT_ENGINE_FAIL_FAST: true     # boolean
+
         command: /bin/bash -c "
-            cd tuto-init; \
-            echo '🚀 Running dbt ...'; \
-            echo '🚀 Running dbt clean...' && dbt clean && echo '✅ dbt clean complete.'; \
-            echo '🚀 Running dbt build...' && dbt build && echo '✅ dbt build complete.'; \
-            cd ../tutorial; \
             echo '🚀 Running dbt clean...' && dbt clean && echo '✅ dbt clean complete.'; \
             echo '🚀 Running dbt deps...' && dbt deps && echo '✅ dbt deps complete.'; \
-            echo '🚀 Running dbt build...' && dbt build && echo '✅ dbt build complete.'; \
+            echo '🚀 Running dbt init...' && dbt build --select package:jaffle_shop_init && echo '✅ dbt init complete.'; \
+            echo '🚀 Running dbt build...' && dbt build --exclude package:jaffle_shop_init && echo '✅ dbt build complete.'; \
             echo '✅ dbt complete.'; \
             tail -f /dev/null "
             # Override dockerfile CMD
